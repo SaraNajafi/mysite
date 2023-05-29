@@ -9,7 +9,22 @@
     <title>Document</title>
 </head>
 <body>
-<p>{% popularposts %}</p>
+   <form action="{% url 'website:test' %}" method="post">
+       {% csrf_token   %}
+
+       
+     <label>name</label>
+    <input name="name" type="text">
+     
+    <!-- <label>email</label>
+    <input name="email" type="email">
+    <label>subject</label>
+    <input name="subject" type="text">
+    <label>message</label>
+    <input name="message" type="text"> -->
+        {{form}}
+        <button type="submit">submit</button>
+    </form>
 
 
 
