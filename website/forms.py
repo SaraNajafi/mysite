@@ -7,10 +7,12 @@ class NameForm(forms.Form):
 
 
 class ContactForm(forms.ModelForm):
+    #subject=forms.CharField(help_text="Do you have any questions?", widget=forms.Textarea, required=False)
     class Meta:
         model = Contact
-        #fields=['name', 'email']
+        #fields=['name', 'email','message']
         fields ='__all__'
+        
 
 class NewsLetterForm(forms.ModelForm):
 

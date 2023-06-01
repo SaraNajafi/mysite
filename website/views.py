@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from blog.models import Post
 from website.models import Contact
 from website.forms import NameForm, ContactForm, NewsLetterForm
@@ -17,8 +17,16 @@ def contact_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            Contact.objects.create(
+                name='anonymous',
+                email=form.cleaned_data.get('email'),
+                subject =form.cleaned_data.get('subject'),
+                message=form.cleaned_data.get('message')
+            )
+            #form.save()
             messages.add_message(request, messages.SUCCESS, 'Your ticket submited successfully')
+            #messages.success(request, "Message sent." )
+            return redirect("/")
         else:
             messages.add_message(request, messages.ERROR, 'Invalid')
     form = ContactForm
