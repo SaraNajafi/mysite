@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Category(models.Model):
@@ -13,7 +14,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    #tag
+    tags=TaggableManager()
     category=models.ManyToManyField(Category)
     author=models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image=models.ImageField(upload_to='blog/', default='blog/default.jpg')
