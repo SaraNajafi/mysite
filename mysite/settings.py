@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'robots',
     'taggit',
+    'django_summernote',
     'blog'
 ]
 
@@ -54,6 +55,10 @@ SITE_ID = 2
 #robots
 ROBOTS_USE_HOST=True
 ROBOTS_USE_SITEMAP=True
+
+
+#summer_note
+SUMMERNOTE_THEME = 'bs4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,3 +158,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
