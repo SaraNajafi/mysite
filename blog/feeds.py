@@ -9,7 +9,7 @@ class LatestEntriesFeed(Feed):
     description = "Best blog ever."
 
     def items(self):
-        return Post.objects.filter(status=True) 
+        return Post.objects.filter(status=True)
 
     def item_title(self, item):
         return item.title
