@@ -33,14 +33,18 @@ def blog_single(request, pid):
     next = post
 
     blogs = Post.objects.filter(status=1)
-    for i in range(len(blogs)-1):
+    for i in range(len(blogs)):
         if blogs[i].id == post.id:
+            print(len(blogs))
             if i == 0:
-                prev = blogs[i]
+                print(blogs[i].title)
+                prev = '0'
                 next = blogs[i+1]
             elif i == len(blogs)-1:
+                print(i)
+                print(blogs[i].title)
                 prev = blogs[i-1]
-                next = blogs[i]
+                next = '0'
             else:
                 prev = blogs[i-1]
                 next = blogs[i+1]
