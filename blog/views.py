@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from blog.models import Post
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 
@@ -31,27 +33,28 @@ def blog_single(request, pid):
     post = get_object_or_404(Post, id=pid, status=1)
     prev = post
     next = post
+    if not post.login_require:
+        blogs = Post.objects.filter(status=1)
+        for i in range(len(blogs)):
+            if blogs[i].id == post.id:
+                print(len(blogs))
+                if i == 0:
+                    print(blogs[i].title)
+                    prev = '0'
+                    next = blogs[i+1]
+                elif i == len(blogs)-1:
+                    print(i)
+                    print(blogs[i].title)
+                    prev = blogs[i-1]
+                    next = '0'
+                else:
+                    prev = blogs[i-1]
+                    next = blogs[i+1]
 
-    blogs = Post.objects.filter(status=1)
-    for i in range(len(blogs)):
-        if blogs[i].id == post.id:
-            print(len(blogs))
-            if i == 0:
-                print(blogs[i].title)
-                prev = '0'
-                next = blogs[i+1]
-            elif i == len(blogs)-1:
-                print(i)
-                print(blogs[i].title)
-                prev = blogs[i-1]
-                next = '0'
-            else:
-                prev = blogs[i-1]
-                next = blogs[i+1]
-
-    context = {'post': post, 'prev': prev, 'next': next}
-    return render(request, 'blog/blog-single.html', context)
-
+        context = {'post': post, 'prev': prev, 'next': next}
+        return render(request, 'blog/blog-single.html', context)
+    else:
+        return HttpResponseRedirect(reverse('accounts:login'))
 
 def blog_category(request, cat_name):
     posts = Post.objects.filter(status=1)

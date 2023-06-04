@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'robots',
     'taggit',
     'django_summernote',
-    'blog'
+    'blog',
+    'accounts'
 ]
 
 # sites framework
